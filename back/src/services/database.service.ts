@@ -15,14 +15,12 @@ export class DatabaseService {
             username: config.username,
             password: config.password,
             database: config.database,
-            entities: ["src/models/*.model.ts"],
+            entities: ["src/entities/*.entity.ts"],
             synchronize: config.env !== 'production',
             logging: config.env === 'development',
             ssl: config.env === 'production' ? { rejectUnauthorized: false } : false,
         })
     }
-
-
 
     public static getInstance(): DatabaseService {
         if (!DatabaseService.instance) {
