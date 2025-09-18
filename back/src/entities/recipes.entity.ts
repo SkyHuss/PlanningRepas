@@ -1,27 +1,33 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { RecipeIngredient } from "./recipe.ingredient.entity";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { RecipeIngredient } from './recipe.ingredient.entity';
 
-@Entity("recipes")
+@Entity('recipes')
 export class Recipe {
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
-    @PrimaryGeneratedColumn("uuid")
-    id!: string;
+  @Column()
+  title!: string;
 
-    @Column()
-    title!: string;
+  @Column({ type: 'text', nullable: true })
+  description?: string;
 
-    @Column({ type: "text", nullable: true })
-    description?: string;
+  @Column({ type: 'int', nullable: true })
+  cookingTime?: number;
 
-    @Column({ type: "int", nullable: true })
-    cookingTime?: number;
+  @OneToMany(() => RecipeIngredient, (ri) => ri.recipe, { cascade: true })
+  ingredients!: RecipeIngredient[];
 
-    @OneToMany(() => RecipeIngredient, ri => ri.recipe, { cascade: true })
-    ingredients!: RecipeIngredient[];
+  @CreateDateColumn()
+  createdAt!: Date;
 
-    @CreateDateColumn()
-    createdAt!: Date;
-
-    @UpdateDateColumn()
-    updatedAt!: Date;
+  @UpdateDateColumn()
+  updatedAt!: Date;
 }
