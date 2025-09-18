@@ -1,4 +1,11 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { RecipeIngredient } from './recipe.ingredient.entity';
 
 @Entity('ingredients')
@@ -14,4 +21,10 @@ export class Ingredient {
 
   @OneToMany(() => RecipeIngredient, (ri) => ri.ingredient)
   recipeLinks!: RecipeIngredient[];
+
+  @CreateDateColumn()
+  createdAt!: Date;
+
+  @UpdateDateColumn()
+  updatedAt!: Date;
 }
