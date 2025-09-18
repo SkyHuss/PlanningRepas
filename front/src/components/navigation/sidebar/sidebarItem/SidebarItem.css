@@ -1,0 +1,22 @@
+.sidebar-item-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px;
+    height: 40px;
+    border-radius: 8px;
+    color: var(--text-secondary); 
+    transition: all 0.2s ease-in-out;
+}
+
+.sidebar-item-container:hover {
+    color: var(--text-primary);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.sidebar-item-container.active {
+    background-color: var(--white);
+    color: var(--text-primary);
+    font-weight: bold;
+}
