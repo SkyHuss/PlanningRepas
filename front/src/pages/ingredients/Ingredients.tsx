@@ -1,7 +1,5 @@
-import './Ingredients.css';
+import "./Ingredients.css";
 
 export default function Ingredients() {
-    return <div className="ingredients-container">
-        Ingredients Page
-    </div>
+  return <div className="ingredients-container">Ingredients Page</div>;
 }

@@ -1,7 +1,5 @@
-import './MealPlan.css';
+import "./MealPlan.css";
 
 export default function MealPlan() {
-    return <div className="meal-plan-container">
-        Meal Plan Page
-    </div>
+  return <div className="meal-plan-container">Meal Plan Page</div>;
 }
