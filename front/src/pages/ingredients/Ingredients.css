@@ -1,0 +1,9 @@
+.ingredients-container .header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ingredients-container .header .page-title {
+    font-size: 24px;
+    font-weight: bold;
+}

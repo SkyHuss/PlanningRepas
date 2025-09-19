@@ -1,0 +1,22 @@
+.ingredient-form-container {
+     display: flex;
+     flex-direction: column;
+     gap: 16px;
+     padding: 20px;
+ }
+
+ .ingredient-form-container .form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ingredient-form-container .form-actions {
+     display: flex;
+     justify-content: flex-end;
+     gap: 8px;
+ }
+ 
+ .ingredient-form-container .form-actions .action-button {
+     min-width: 120px;
+ }

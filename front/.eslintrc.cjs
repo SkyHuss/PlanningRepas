@@ -5,7 +5,7 @@ module.exports = {
     ecmaVersion: 2020,
     sourceType: 'module',
     ecmaFeatures: { jsx: true },
-    project: './tsconfig.json'
+    project: ['./tsconfig.eslint.json', './tsconfig.node.json', './tsconfig.json']
   },
   env: {
     browser: true,

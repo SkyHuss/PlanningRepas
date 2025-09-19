@@ -3,25 +3,25 @@ import { HttpError } from '../errors/httpError';
 
 export const errorMiddleware = (
   err: unknown,
-  _req: Request,
+  req: Request,
   res: Response,
-  _next: NextFunction,
+  next: NextFunction,
 ): void => {
-  // logging minimal (remplacer par logger si besoin)
+  // si une réponse a déjà été démarrée, déléguer à Express (évite double send)
+  if (res.headersSent) {
+    console.error('Headers already sent, delegating to default handler', err);
+    return next(err as any);
+  }
+
   console.error(err);
 
   if (err instanceof HttpError) {
-    res
-      .status(err.statusCode)
-      .json({ error: err.message, ...(err.details ? { details: err.details } : {}) });
+    res.status(err.statusCode).json({ error: err.message, ...(err.details ? { details: err.details } : {}) });
     return;
   }
 
   const anyErr = err as any;
-
-  // Mapper erreurs Postgres / TypeORM courantes
   if (anyErr?.code === '23505') {
-    // violation unique
     res.status(409).json({ error: 'Conflict', details: anyErr.detail ?? anyErr.message });
     return;
   }
