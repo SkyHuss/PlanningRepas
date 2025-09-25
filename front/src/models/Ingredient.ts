@@ -6,4 +6,5 @@ export type Ingredient = {
   updatedAt?: Date;
   recipesLinks: string[];
   image?: string;
+  imageUrl?: string;
 };

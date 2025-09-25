@@ -3,11 +3,21 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { errorMiddleware } from './middlewares/error.middleware';
 import ingredientsRoutes from './routes/ingredients.routes';
+import path from 'path';
+import { config } from './config/config';
 
 const app = express();
-app.use(cors());
-app.use(helmet());
+app.use(cors({ origin: config.frontendUrl }));
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+    crossOriginEmbedderPolicy: false,
+  }),
+);
+
 app.use(express.json());
+
+app.use('/api/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
 app.use('/api/ingredients', ingredientsRoutes);
 
