@@ -11,7 +11,7 @@ export interface IngredientFormData {
   id: string | null;
   name: string;
   description: string;
-  imageUrl: string | File | null | undefined;
+  image: string | File | null | undefined;
 }
 
 interface Props {
@@ -29,7 +29,7 @@ export default function IngredientForm({
     id: ingredient ? ingredient.id : null,
     name: ingredient ? ingredient.name : "",
     description: ingredient ? ingredient.description : "",
-    imageUrl: ingredient ? ingredient.imageUrl : null,
+    image: ingredient ? ingredient.image : null,
   });
 
   const handleInputChange = (
@@ -60,8 +60,8 @@ export default function IngredientForm({
           label="Image de l'ingrédient"
           subLabel="Une petite image pour illustrer l'ingrédient"
           isRequired={false}
-          file={formData.imageUrl}
-          setFile={(file: File | null) => handleInputChange("imageUrl", file)}
+          file={formData.image}
+          setFile={(file: File | null) => handleInputChange("image", file)}
           placeholder="Clicker ici ou glisser-déposer une image (png, jpg, jpeg, gif)"
         />
       </div>

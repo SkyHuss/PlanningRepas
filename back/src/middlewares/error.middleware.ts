@@ -16,7 +16,9 @@ export const errorMiddleware = (
   console.error(err);
 
   if (err instanceof HttpError) {
-    res.status(err.statusCode).json({ error: err.message, ...(err.details ? { details: err.details } : {}) });
+    res
+      .status(err.statusCode)
+      .json({ error: err.message, ...(err.details ? { details: err.details } : {}) });
     return;
   }
 

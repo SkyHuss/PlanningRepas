@@ -4,7 +4,10 @@ import "./Ingredients.css";
 import { useEffect, useState } from "react";
 import type { Ingredient } from "../../models/Ingredient";
 import IngredientItem from "../../components/ingredient/ingredientItem/IngredientItem";
-import { getIngredientsList, postIngredient } from "../../service/api/ingredientService";
+import {
+  getIngredientsList,
+  postIngredient,
+} from "../../service/api/ingredientService";
 import Modal from "../../components/generic/modal/Modal";
 import IngredientForm, {
   type IngredientFormData,

@@ -25,6 +25,7 @@ export class IngredientsService {
     const newIngredient: Ingredient = {
       ...ingredient,
       id: uuidv4(),
+      imageUrl: ingredient.imageUrl || undefined,
       createdAt: new Date(),
       updatedAt: new Date(),
       recipeLinks: ingredient.recipeLinks ?? [],
