@@ -19,6 +19,8 @@ export default function Ingredients() {
 
   const fetchIngredientsList = async () => {
     const response: Ingredient[] = await getIngredientsList();
+
+    console.log(response);
     setIngredients(response);
   };
 

@@ -1,4 +1,5 @@
 import type { Ingredient } from "../../../models/Ingredient";
+import "./IngredientItem.css";
 
 interface Props {
   ingredient: Ingredient;
@@ -16,10 +17,23 @@ export default function IngredientItem({ ingredient }: Props) {
 
   return (
     <div className="ingredient-item-container">
-      {ingredient.name}
       {ingredient.imageUrl ? (
         <img src={imageSrc} alt={ingredient.name} />
-      ) : null}
+      ) : (
+        <img
+          src="/assets/no-pictures.png"
+          alt="no-image"
+          className="no-image"
+        />
+      )}
+
+      <div className="details">
+        <div className="name">{ingredient.name}</div>
+        <div className="description">{ingredient.description}</div>
+        <div className="stock-container">
+          <div className="amount">x5</div>
+        </div>
+      </div>
     </div>
   );
 }

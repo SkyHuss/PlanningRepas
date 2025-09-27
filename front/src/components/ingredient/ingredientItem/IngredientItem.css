@@ -1,0 +1,48 @@
+.ingredient-item-container {
+    height: 200px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background-color: var(--white);
+    border-radius: 8px;
+}
+
+.ingredient-item-container img {
+    height: 120px;
+    width: 100%;
+    object-fit: cover;
+    background-color: var(--secondary-50);
+}
+
+.ingredient-item-container .no-image {
+    object-fit: contain;
+}
+
+.ingredient-item-container .details {
+    padding: 10px;
+    font-size: var(--xx-small);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.ingredient-item-container .details .name {
+    font-weight: bold;
+    font-size: var(--small);
+}
+
+.ingredient-item-container .details .description {
+    color: var(--text-secondary);
+}
+
+.ingredient-item-container .details .stock-container {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.ingredient-item-container .details .stock-container .amount {
+    font-weight: bold;
+}
+
