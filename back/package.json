@@ -15,7 +15,8 @@
     "test:e2e": "jest --config jest.e2e.config.js",
     "lint": "eslint \"src/**/*.{ts,js}\" --max-warnings=0",
     "lint:fix": "eslint \"src/**/*.{ts,js}\" --fix",
-    "format": "prettier --write \"src/**/*.{ts,js,json,md}\""
+    "format": "prettier --write \"src/**/*.{ts,js,json,md}\"",
+    "seed:dev": "ts-node-dev --respawn --transpile-only src/seed/seed.ts"
   },
   "keywords": [],
   "author": "",
