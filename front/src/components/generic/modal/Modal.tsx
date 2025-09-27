@@ -1,4 +1,9 @@
-import { type PropsWithChildren, useEffect, useState } from "react";
+import {
+  type PropsWithChildren,
+  useEffect,
+  useState,
+  type MouseEvent,
+} from "react";
 import { createPortal } from "react-dom";
 import "./Modal.css";
 import { Close } from "@mui/icons-material";
@@ -27,18 +32,29 @@ export default function Modal(props: PropsWithChildren<Props>) {
     setDomReady(true);
   }, []);
 
+  const stop = (e: MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  const handleCloseClick = (e: MouseEvent) => {
+    e.stopPropagation();
+    props.closeModal && props.closeModal();
+  };
+
   return createPortal(
     <div
       className={`modal-background ${props.position ? props.position : "center"}`}
+      onClick={stop} // prevent clicks inside the portal from bubbling to parent React tree
     >
       <div
         id="modal"
         className={`modal-container ${showContent ? "show-modal" : ""}`}
+        onClick={stop}
       >
         <div className="header">
           <div className="modal-title">{props.title}</div>
           {!props.noCloseButton && (
-            <div className="close-modal" onClick={props.closeModal}>
+            <div className="close-modal" onClick={handleCloseClick}>
               <Close />
             </div>
           )}

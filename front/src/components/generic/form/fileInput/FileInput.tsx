@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { type ChangeEvent, useEffect, useState } from "react";
 import "./FileInput.css";
 import { Check, CloudUpload, NoPhotography } from "@mui/icons-material";
 
@@ -49,11 +49,8 @@ export default function FileInput({
     if (selectedFile) {
       return URL.createObjectURL(selectedFile);
     }
-    if (
-      typeof file === "string" &&
-      /^data:image\/[a-zA-Z]+;base64,/.test(file)
-    ) {
-      return file; //base64 image
+    if (typeof file === "string") {
+      return import.meta.env.VITE_API_URL + file; //base64 image
     }
     if (typeof file === "string") {
       return import.meta.env.VITE_BASE_URL + file; //image link

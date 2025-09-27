@@ -25,7 +25,8 @@ export const createIngredient = asyncHandler(async (req: Request, res: Response)
 
 export const updateIngredient = asyncHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
-  const payload = req.body;
+  const payload = await buildPayloadFromRequest(req);
+
   const updated = await IngredientsService.update(id, payload);
   if (!updated) throw new HttpError(404, 'Ingredient not found');
   res.status(200).json(updated);

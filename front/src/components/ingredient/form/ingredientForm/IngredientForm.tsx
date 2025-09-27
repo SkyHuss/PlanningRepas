@@ -29,7 +29,7 @@ export default function IngredientForm({
     id: ingredient ? ingredient.id : null,
     name: ingredient ? ingredient.name : "",
     description: ingredient ? ingredient.description : "",
-    image: ingredient ? ingredient.image : null,
+    image: ingredient ? ingredient.imageUrl : null,
   });
 
   const handleInputChange = (

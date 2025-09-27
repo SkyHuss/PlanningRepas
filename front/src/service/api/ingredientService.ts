@@ -8,7 +8,7 @@ export const getIngredientsList = async (): Promise<Ingredient[]> => {
 };
 
 export const postIngredient = async (
-  data: IngredientFormData, // ajouter le file en second argument optionnel
+  data: IngredientFormData,
 ): Promise<Ingredient> => {
   const form = new FormData();
   form.append("name", data.name);
@@ -16,5 +16,19 @@ export const postIngredient = async (
   if (data.image) form.append("image", data.image);
 
   const response = await api.post<Ingredient>("/ingredients", form);
+  return response.data;
+};
+
+export const putIngredient = async (
+  data: IngredientFormData,
+  id: string,
+): Promise<Ingredient> => {
+  const form = new FormData();
+  form.append("name", data.name);
+  if (data.description) form.append("description", data.description);
+  if (data.image && data.image instanceof File)
+    form.append("image", data.image);
+
+  const response = await api.put<Ingredient>(`/ingredients/${id}`, form);
   return response.data;
 };

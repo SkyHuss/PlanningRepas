@@ -51,7 +51,15 @@ export default function Ingredients() {
       </div>
       <div className="ingredient-list">
         {ingredients.map((ingredient) => (
-          <IngredientItem key={ingredient.id} ingredient={ingredient} />
+          <IngredientItem
+            key={ingredient.id}
+            ingredient={ingredient}
+            onUpdate={(updated) =>
+              setIngredients((prev) =>
+                prev.map((i) => (i.id === updated.id ? updated : i)),
+              )
+            }
+          />
         ))}
       </div>
 

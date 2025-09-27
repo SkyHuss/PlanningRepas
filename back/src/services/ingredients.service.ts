@@ -1,4 +1,6 @@
 import { Repository } from 'typeorm';
+import fs from 'fs';
+import path from 'path';
 import { Ingredient } from '../entities/ingredient.entity';
 import { DatabaseService } from './database.service';
 import { CreateIngredientDTO } from '../dto/ingredients/create-ingredient.dto';
@@ -45,9 +47,46 @@ export class IngredientsService {
       return null;
     }
 
+    // Determine image handling:
+    let newImageUrl = existingIngredient.imageUrl;
+    if (Object.prototype.hasOwnProperty.call(ingredient, 'imageUrl')) {
+      if (ingredient.imageUrl) {
+        // replace image: remove old file if present and different
+        if (existingIngredient.imageUrl && existingIngredient.imageUrl !== ingredient.imageUrl) {
+          try {
+            const uploadsDir = path.join(process.cwd(), 'uploads');
+            const oldFilename = path.basename(existingIngredient.imageUrl);
+            const oldPath = path.join(uploadsDir, oldFilename);
+            await fs.promises.unlink(oldPath);
+          } catch (err) {
+            // if file doesn't exist or deletion fails, log and continue
+            console.warn(`Failed to remove old image for ingredient ${id}:`, err);
+          }
+        }
+
+        newImageUrl = ingredient.imageUrl;
+      } else {
+        // payload contains imageUrl but falsy (e.g. empty string or null) -> clear image
+        // set to undefined in DB
+        if (existingIngredient.imageUrl) {
+          try {
+            const uploadsDir = path.join(process.cwd(), 'uploads');
+            const oldFilename = path.basename(existingIngredient.imageUrl);
+            const oldPath = path.join(uploadsDir, oldFilename);
+            await fs.promises.unlink(oldPath);
+          } catch (err) {
+            console.warn(`Failed to remove old image for ingredient ${id}:`, err);
+          }
+        }
+
+        newImageUrl = undefined;
+      }
+    }
+
     const updatedIngredient: Ingredient = {
       ...existingIngredient,
       ...ingredient,
+      imageUrl: newImageUrl,
       updatedAt: new Date(),
     };
 
