@@ -34,8 +34,8 @@ export const updateIngredient = asyncHandler(async (req: Request, res: Response)
 
 export const deleteIngredient = asyncHandler(async (req: Request, res: Response) => {
   const id = req.params.id;
-  await IngredientsService.delete(id);
-  res.status(200).json({ message: 'Ingredient deleted successfully' });
+  const response = await IngredientsService.delete(id);
+  res.status(200).json(response);
 });
 
 const buildPayloadFromRequest = async (req: Request) => {

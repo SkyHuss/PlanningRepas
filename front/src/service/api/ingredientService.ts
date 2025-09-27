@@ -32,3 +32,8 @@ export const putIngredient = async (
   const response = await api.put<Ingredient>(`/ingredients/${id}`, form);
   return response.data;
 };
+
+export const deleteIngredient = async (id: string): Promise<boolean> => {
+  const response = await api.delete(`/ingredients/${id}`);
+  return response.data;
+};

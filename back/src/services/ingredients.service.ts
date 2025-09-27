@@ -93,14 +93,34 @@ export class IngredientsService {
     return await ingredientRepository.save(updatedIngredient);
   }
 
-  static async delete(id: string): Promise<void> {
+  static async delete(id: string): Promise<boolean> {
     const ingredientRepository = this.getRepository();
+
+    // fetch existing ingredient to know if an image must be removed
+    const existingIngredient = await ingredientRepository.findOne({ where: { id } });
+    if (!existingIngredient) {
+      console.warn(`Ingredient with id ${id} not found for deletion.`);
+      return false;
+    }
+
+    if (existingIngredient.imageUrl) {
+      try {
+        const uploadsDir = path.join(process.cwd(), 'uploads');
+        const filename = path.basename(existingIngredient.imageUrl);
+        const filePath = path.join(uploadsDir, filename);
+        await fs.promises.unlink(filePath);
+      } catch (err) {
+        console.warn(`Failed to remove image for ingredient ${id}:`, err);
+      }
+    }
+
     const result = await ingredientRepository.delete(id);
 
     if (result.affected === 0) {
       console.warn(`Ingredient with id ${id} not found for deletion.`);
+      return false;
     }
 
-    return;
+    return true;
   }
 }

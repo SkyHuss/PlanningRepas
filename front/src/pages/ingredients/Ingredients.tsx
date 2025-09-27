@@ -19,8 +19,6 @@ export default function Ingredients() {
 
   const fetchIngredientsList = async () => {
     const response: Ingredient[] = await getIngredientsList();
-
-    console.log(response);
     setIngredients(response);
   };
 
@@ -58,6 +56,9 @@ export default function Ingredients() {
               setIngredients((prev) =>
                 prev.map((i) => (i.id === updated.id ? updated : i)),
               )
+            }
+            onDelete={(id: string) =>
+              setIngredients((prev) => prev.filter((i) => i.id !== id))
             }
           />
         ))}

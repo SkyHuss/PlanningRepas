@@ -39,10 +39,20 @@
 .ingredient-item-container .details .stock-container {
     width: 100%;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .ingredient-item-container .details .stock-container .amount {
     font-weight: bold;
 }
 
+.ingredient-item-container .details .stock-container .delete-button {
+    cursor: pointer;
+    color: var(--danger-400);
+}
+
+.ingredient-item-container .details .stock-container .delete-button svg {
+    height: 20px;
+    width: 20px;
+}
