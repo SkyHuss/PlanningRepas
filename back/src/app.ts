@@ -1,17 +1,38 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-
+import { errorMiddleware } from './middlewares/error.middleware';
+import ingredientsRoutes from './routes/ingredients.routes';
+import seedRoutes from './routes/seed.routes';
+import path from 'path';
+import { config } from './config/config';
 
 const app = express();
-app.use(cors());
-app.use(helmet());
+app.use(cors({ origin: config.frontendUrl }));
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+    crossOriginEmbedderPolicy: false,
+  }),
+);
+
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.status(200).json({
-        message: 'API Planning Repas is running'
-    });
-})
+app.use('/api/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
-export default app
+app.use('/api/ingredients', ingredientsRoutes);
+
+// Expose seed route only in non-production to avoid accidental runs in prod
+if (config.env !== 'production') {
+  app.use('/api/seed', seedRoutes);
+}
+
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message: 'API Planning Repas is running',
+  });
+});
+
+app.use(errorMiddleware);
+
+export default app;

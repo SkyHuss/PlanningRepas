@@ -1,0 +1,8 @@
+.confirm-message {
+    padding: 20px 0;
+}
+
+.confirm-actions {
+    display: flex;
+    justify-content: space-between;
+}
